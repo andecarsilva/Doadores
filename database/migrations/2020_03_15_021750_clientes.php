@@ -23,7 +23,7 @@ class Clientes extends Migration
             $table->date('data_nascimento');
             $table->date('data_cadastro');
             $table->string('intervalo_doacao');
-            $table->string('valor_doacao');
+            $table->double('valor_doacao');
             $table->bigInteger('id_forma_pg');
             $table->string('cep');
             $table->string('rua');

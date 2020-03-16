@@ -7,7 +7,7 @@
    <!-- Page Heading -->
    <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
-    <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Gerar relatório</a>
+    <a href="/gerarelatorio" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Gerar relatório</a>
   </div>
 
   <!-- Content Row -->
@@ -56,7 +56,7 @@
     @if (session('status'))
     <div class="col-sm-12">
       <div class="alert alert-success alert-dismissible fade show" role="alert">
-        <strong>Cliente</strong> {{session('status')}}!.
+          {{session('status')}}!.
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -276,8 +276,14 @@
                     
                     <div class="col-sm-4">
                         <label for="">Formas de Pagamento</label>
-                        <select name="forma_pagamentoU" id="forma_pagamentoU" class="form-control" id="">
-                            <option value="">1</option>
+                        <select name="forma_pagamentoU" id="forma_pagamentoU" class="form-control">
+                          @php
+                          $pagamento = App\FormasPagamentos::all();
+                          @endphp
+
+                          @foreach ($pagamento as $dados)
+                            <option value="{{$dados->id_forma}}"> {{$dados->tipo}} </option>
+                          @endforeach
                         </select>
                     </div>
              

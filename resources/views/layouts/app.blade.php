@@ -59,12 +59,12 @@
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
           <i class="fas fa-fw fa-cog"></i>
-          <span>Clientes</span>
+          <span>Opções</span>
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <a class="collapse-item" href="#" data-toggle="modal" data-target="#new_client">Novo Cliente</a>
-            <a class="collapse-item" href="buttons.html">Pesquisar Cliente</a>
+            <a class="collapse-item" data-toggle="modal" data-target="#formapagamento" href="#">Nova forma pagamento</a>
           </div>
         </div>
       </li>
@@ -273,6 +273,8 @@
 <div class="modal fade" id="new_client" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
+        <form action="/newcliente" method="POST" id="newcliente">
+          @csrf
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">Cadastrar novo cliente</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -280,36 +282,35 @@
           </button>
         </div>
         <div class="modal-body">
-            <form action="/newcliente" method="POST" id="newcliente">
-                @csrf
+         
                 <div class="row">
                     <div class="col-sm">
                         <label for="name">Nome:</label>
-                        <input type="text" class="form-control" name="nome" placeholder="digite o nome do cliente ...">
+                        <input type="text" class="form-control" id="nome" name="nome" placeholder="digite o nome do cliente ..."  required>
                     </div>
 
                     <div class="col-sm">
                         <label for="email">Email:</label>
-                        <input type="email" class="form-control" name="email" placeholder="Digite seu email..">
+                        <input type="email" class="form-control" name="email" placeholder="Digite seu email.." required>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-sm">
                         <label for="cpf">CPF:</label>
-                        <input type="text" class="form-control" name="cpf" placeholder="Digite seu CPF...">
+                        <input type="text" class="form-control" name="cpf" placeholder="Digite seu CPF..." required>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-sm">
                         <label for="telefone1">Telefone:</label>
-                        <input type="text" class="form-control" name="telefone" placeholder="Digite o numero de telefone...">
+                        <input type="text" class="form-control" name="telefone" placeholder="Digite o numero de telefone..." required>
                     </div>
 
                     <div class="col-sm">
                         <label for="telefone2">Telefone de contato 2:</label>
-                        <input type="text" class="form-control" name="telefone_dois" placeholder="Digite o numero de telefone...">
+                        <input type="text" class="form-control" name="telefone_dois" required placeholder="Digite o numero de telefone...">
                     </div>
 
                 </div>
@@ -330,7 +331,7 @@
                 <div class="row">
                     <div class="col-sm-4">
                         <label for="">Intervalo para doação</label>
-                        <select name="intervalo_doacao" class="form-control" id="">
+                        <select name="intervalo_doacao" class="form-control" id="" required>
                             <option value="Unico">Unico</option>
                             <option value="Bimestral">Bimestral</option>
                             <option value="Semestral">Semestral</option>
@@ -340,13 +341,13 @@
 
                     <div class="col-sm-4">
                         <label for="">Valor da doação</label>
-                        <input type="text" name="valor_doacao" class="form-control">
+                        <input type="text" name="valor_doacao" class="form-control" required>
                     </div>
 
                     
                     <div class="col-sm-4">
                         <label for="">Formas de Pagamento</label>
-                        <select name="forma_pagamento" class="form-control" id="">
+                        <select name="forma_pagamento" class="form-control" id="" required>
                           @php
                               $pagamento = App\FormasPagamentos::all();
                           @endphp
@@ -362,48 +363,70 @@
                 <div class="row">
                   <div class="col-sm">
                       <label for="">CEP</label>
-                      <input type="text" name="cep" maxlength="12" class="form-control">
+                      <input type="text" name="cep" maxlength="12" class="form-control" required>
                   </div>
 
                   <div class="col-sm">
                       <label for="">Rua</label>
-                      <input type="text" name="rua" maxlength="12" class="form-control">
+                      <input type="text" name="rua" maxlength="12" class="form-control" required>
                   </div>
 
                   <div class="col-sm">
                       <label for="">Nº</label>
-                      <input type="text" name="numero" maxlength="12" class="form-control">
+                      <input type="text" name="numero" maxlength="12" class="form-control" required >
                   </div>
               </div>
 
               <div class="row">
                 <div class="col-sm">
                   <label for="">Complemento</label>
-                  <input type="text" name="complemento" class="form-control">
+                  <input type="text" name="complemento" class="form-control" >
                 </div>
               </div>
 
-            </form>
+            
         </div>
 
         <div class="modal-footer">
           <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-          <button type="button" onclick="validaFormClientes()" class="btn btn-success">salvar</button>
+          <button type="submit" class="btn btn-success">salvar</button>
         </div>
-
+      </form>
       </div>
     </div>
   </div>
 
-  {{-- valide form --}}
 
-  <script>
-    function validaFormClientes(){
+  {{-- modal formas pagamento --}}
 
-      $('#newcliente').submit();
-    }
-
-  </script>
+  <!-- Modal -->
+<div class="modal fade" id="formapagamento" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <form action="/newformapagamento" method="POST">
+        @csrf
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Cadastrar nova forma de pagamento</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-sm">
+            <label for="">Foma pagamento</label>
+            <input type="text" name="forma_pagamento" required class="form-control" required>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button type="submit" class="btn btn-primary">Cadastrar</button>
+      </div>
+    </form>
+    </div>
+  </div>
+</div>
 
 
   <!-- Bootstrap core JavaScript-->
@@ -429,6 +452,9 @@
   
  <!-- Page level custom scripts -->
  <script src="js/demo/datatables-demo.js"></script>
+
+
+ 
 
 
 </body>

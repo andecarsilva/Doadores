@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\FormasPagamentos;
 use Illuminate\Http\Request;
 
 class FormaPagamentoController extends Controller
@@ -35,7 +36,8 @@ class FormaPagamentoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $forma = FormasPagamentos::create(['tipo' => $request->forma_pagamento]);
+        return back()->with('status', 'Cadastrada com sucesso!');
     }
 
     /**

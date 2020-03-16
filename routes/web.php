@@ -30,6 +30,11 @@ Route::post('/newcliente','ClientesController@store');
 Route::get('/deletecliente','ClientesController@destroy');
 Route::get('/getclientes','ClientesController@show');
 Route::post('/editliente','ClientesController@update');
+Route::get('/gerarelatorio',function(){
+    return view('relatorios.clientes');
+});
+
+Route::post('/newformapagamento','FormaPagamentoController@store');
 
 
 

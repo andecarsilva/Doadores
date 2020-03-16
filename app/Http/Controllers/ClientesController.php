@@ -112,14 +112,13 @@ class ClientesController extends Controller
      */
     public function update(Request $request)
     {   
-        $clientes = Clientes::where('id_cliente','=',$request->id_cienteU)->update([
-            'nome' => $request->nomeU,
+        // dd($request->all());
+        $cliente = Clientes::where('id_cliente','=',$request->id_clienteU)->update(['nome' => $request->nomeU,
             'email' => $request->emailU,
             'cpf' => $request->cpfU,
             'telefone' => $request->telefoneU,
             'telefone_dois' => $request->telefone_doisU,
             'data_nascimento' => $request->data_nascimentoU,
-            'data_cadastro' => $request->date_cadastroU,
             'intervalo_doacao' => $request->intervalo_doacaoU,
             'valor_doacao' => $request->valor_doacaoU,
             'id_forma_pg' => $request->forma_pagamentoU,
@@ -127,9 +126,7 @@ class ClientesController extends Controller
             'rua' => $request->ruaU,
             'numero' => $request->numeroU,
             'complemento' => $request->complementoU,
-
         ]);
-
         return back()->with('status', 'Alterado!');
     }
 
