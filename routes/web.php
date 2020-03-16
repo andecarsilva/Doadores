@@ -22,3 +22,15 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/recuperarsenha', function () {
     return view('auth.passwords.email');
 });
+
+
+// rotas cliente
+
+Route::post('/newcliente','ClientesController@store');
+Route::get('/deletecliente','ClientesController@destroy');
+Route::get('/getclientes','ClientesController@show');
+Route::post('/editliente','ClientesController@update');
+
+
+
+
